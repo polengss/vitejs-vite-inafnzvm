@@ -518,23 +518,28 @@ export default function App() {
           );
         }
       } else {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: authEmail.trim(),
-          password: authPassword,
-        });
-        const welcomeKey = `findit-welcome-shown-${data.user.id}`;
-        const alreadyShown = sessionStorage.getItem(welcomeKey);
-
-        if (!alreadyShown) {
-          setShowWelcomeModal(true);
-          sessionStorage.setItem(welcomeKey, 'true');
-        }
-
-        if (error) throw error;
-
-        setUser(data.user);
-        setShowAuth(false);
-        showNotice(`Welcome back, ${getUsername(data.user)}!`);
+            const { data, error } = await supabase.auth.signInWithPassword({
+              email: authEmail.trim(),
+              password: authPassword,
+            });
+            
+            if (error) throw error;
+            
+            if (!data.user) {
+              throw new Error('No user information was returned after sign-in.');
+            }
+            
+            const welcomeKey = `findit-welcome-shown-${data.user.id}`;
+            const alreadyShown = sessionStorage.getItem(welcomeKey);
+            
+            if (!alreadyShown) {
+              setShowWelcomeModal(true);
+              sessionStorage.setItem(welcomeKey, 'true');
+            }
+            
+            setUser(data.user);
+            setShowAuth(false);
+            showNotice(`Welcome back, ${getUsername(data.user)}!`);
       }
     } catch (error) {
       const text =

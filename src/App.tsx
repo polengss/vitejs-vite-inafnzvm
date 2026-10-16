@@ -928,7 +928,7 @@ export default function App() {
             )}
           </div>
         </div>
-
+      </header>
 
       {showSearch && (
         <div className="navbar-search-panel">

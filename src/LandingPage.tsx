@@ -1,3 +1,4 @@
+import CampusMap from './CampusMap';
 import './LandingPage.css';
 
 type LandingPageProps = {
@@ -19,10 +20,9 @@ export default function LandingPage({ onSignIn, onCreateAccount }: LandingPagePr
       <div className="findit-landing-inner">
         <section className="findit-snapshots" aria-label="Campus snapshots">
           <div className="findit-photo-layout">
-            <div className="findit-photo-large findit-photo-placeholder" role="img" aria-label={snapshotLabels[0]}>
-              <span className="findit-photo-icon" aria-hidden="true">⌖</span>
-              <span>{snapshotLabels[0]}</span>
-            </div>
+              <div className="findit-photo-large findit-map-tile">
+                 <CampusMap />
+               </div>
             <div className="findit-photo-stack">
               {snapshotLabels.slice(1).map((label, index) => (
                 <div className={`findit-photo-small findit-photo-placeholder findit-photo-${index + 1}`} role="img" aria-label={label} key={label}>

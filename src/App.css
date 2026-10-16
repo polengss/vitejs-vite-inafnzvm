@@ -2810,3 +2810,50 @@
   width: 100%;
   max-width: none;
 }
+
+/* REMOVE THE OUTER PAGE WIDTH RESTRICTION */
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Allow the public landing page to fill the screen */
+.app-shell:has(.findit-landing) {
+  width: 100%;
+  max-width: none !important;
+}
+
+/* Keep the navbar full width */
+.navbar {
+  width: 100%;
+  max-width: none !important;
+}
+
+/* LET THE LANDING PAGE FILL THE AVAILABLE SCREEN */
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}

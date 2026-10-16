@@ -358,3 +358,19 @@
     font-size: 16px;
   }
 }
+/* Match the MANOA-inspired text alignment */
+.findit-snapshots-caption {
+  text-align: left;
+}
+
+.findit-landing-copy {
+  text-align: left;
+}
+
+.findit-landing-copy h1 {
+  text-align: left;
+}
+
+.findit-landing-actions {
+  justify-content: flex-start;
+}

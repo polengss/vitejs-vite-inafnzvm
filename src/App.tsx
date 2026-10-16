@@ -533,14 +533,16 @@ export default function App() {
             const welcomeKey = `findit-welcome-shown-${data.user.id}`;
             const alreadyShown = sessionStorage.getItem(welcomeKey);
             
-            if (!alreadyShown) {
-              setShowWelcomeModal(true);
-              sessionStorage.setItem(welcomeKey, 'true');
-            }
-            
             setUser(data.user);
             setShowAuth(false);
-            showNotice(`Welcome back, ${getUsername(data.user)}!`);
+            if (!alreadyShown) {
+              setMessage('');
+              setErrorMessage('');
+              setShowWelcomeModal(true);
+              sessionStorage.setItem(welcomeKey, 'true');
+            } else {
+              showNotice(`Welcome back, ${getUsername(data.user)}!`);
+            }
       }
     } catch (error) {
       const text =
@@ -826,6 +828,7 @@ export default function App() {
         </a>
 
         
+        {user ? (
         <div className="navbar-actions">
           <button
             type="button"
@@ -899,40 +902,23 @@ export default function App() {
                       Sign out
                     </button>
                   </>
-                ) : (
-                  <>
-                    <div className="profile-details">
-                      <span className="profile-name">Welcome to FindIt</span>
-                      <span className="profile-email">
-                        Sign in to report and manage items.
-                      </span>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="dropdown-action"
-                      onClick={() => openAuth('signin')}
-                    >
-                      Sign in
-                    </button>
-
-                    <button
-                      type="button"
-                      className="dropdown-action dropdown-primary"
-                      onClick={() => openAuth('signup')}
-                    >
-                      Create account
-                    </button>
-                  </>
-                )}
+                ) : null}
               </div>
             )}
           </div>
         </div>
+        ) : (
+          <nav className="public-navbar-actions" aria-label="Public navigation">
+            <a className="public-nav-link" href="#home">Home</a>
+            <a className="public-nav-link" href="#findit-faq">FAQ</a>
+            <button type="button" className="public-nav-signin" onClick={() => openAuth('signin')}>Sign In</button>
+            <button type="button" className="public-nav-signup" onClick={() => openAuth('signup')}>Create Account</button>
+          </nav>
+        )}
       </header>
 
 
-      {showSearch && (
+      {user && showSearch && (
         <div className="navbar-search-panel">
           <form
             className="search-bar"
@@ -1213,10 +1199,19 @@ export default function App() {
         </section>
       </main>
         ) : (
-          <LandingPage
-            onSignIn={() => openAuth('signin')}
-            onCreateAccount={() => openAuth('signup')}
-          />
+          <>
+            <LandingPage
+              onSignIn={() => openAuth('signin')}
+              onCreateAccount={() => openAuth('signup')}
+            />
+            <section id="findit-faq" className="public-faq" aria-labelledby="public-faq-title">
+              <p className="findit-eyebrow">COMMON QUESTIONS</p>
+              <h2 id="public-faq-title">How FindIt works</h2>
+              <details><summary>How do I report a lost or found item?</summary><p>Create an account or sign in, then choose Report. Add the item details and an optional photo.</p></details>
+              <details><summary>Can I contact someone who reported an item?</summary><p>Yes. After signing in, open a report and select Message Reporter to start a private conversation.</p></details>
+              <details><summary>Can I edit my report?</summary><p>Yes. You can edit reports you created and mark an item as returned.</p></details>
+            </section>
+          </>
         )}
 
       <footer className="footer">
@@ -1227,7 +1222,7 @@ export default function App() {
         <span>Campus Lost and Found</span>
       </footer>
 
-      <button
+      {user && <button
         type="button"
         className="floating-messages-button"
         onClick={openMessagesInbox}
@@ -1254,9 +1249,9 @@ export default function App() {
             {conversations.length > 9 ? '9+' : conversations.length}
           </span>
         )}
-      </button>
+      </button>}
 
-      {showWelcomeModal && !message && !errorMessage && (
+      {user && showWelcomeModal && !message && !errorMessage && (
         <div
           className="modal-backdrop welcome-backdrop"
           onMouseDown={(event) => {

@@ -2797,3 +2797,16 @@
     display: none;
   }
 }
+
+/* FULL-WIDTH APPLICATION LAYOUT */
+
+.app-shell {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.navbar {
+  width: 100%;
+  max-width: none;
+}

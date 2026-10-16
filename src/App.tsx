@@ -824,101 +824,111 @@ export default function App() {
           </span>
         </a>
 
+        
         <div className="navbar-actions">
           <button
             type="button"
-            className={`nav-action-button ${
+            className={`nav-action-button expandable-action ${
               showSearch ? 'nav-action-active' : ''
             }`}
             onClick={() => {
               setShowSearch((current) => !current);
               setShowProfile(false);
             }}
+            aria-label="Search"
           >
-            <span aria-hidden="true">⌕</span>
-            <span>Search</span>
+            <span className="expandable-icon" aria-hidden="true">⌕</span>
+            <span className="expandable-label">Search</span>
           </button>
-
+        
           <button
             type="button"
-            className="nav-action-button nav-report-button"
+            className="nav-action-button expandable-action nav-report-button"
             onClick={openReportForm}
+            aria-label="Report item"
           >
-            <span aria-hidden="true">＋</span>
-            <span>Report Item</span>
+            <span className="expandable-icon" aria-hidden="true">＋</span>
+            <span className="expandable-label">Report</span>
           </button>
+        
+          <div className="profile-wrapper">
+            <button
+              type="button"
+              className={`profile-button expandable-action ${
+                showProfile ? 'profile-active' : ''
+              }`}
+              onClick={() => {
+                setShowProfile((current) => !current);
+                setShowSearch(false);
+              }}
+              aria-expanded={showProfile}
+              aria-label="Account"
+            >
+              <span className="profile-avatar" aria-hidden="true">
+                {user ? getUsername(user).charAt(0).toUpperCase() : '👤'}
+              </span>
+              <span className="expandable-label">Account</span>
+            </button>
+        
+            {showProfile && (
+              <div className="profile-dropdown">
+                {user ? (
+                  <>
+                    <div className="profile-details">
+                      <span className="profile-name">{getUsername(user)}</span>
+                      <span className="profile-email">{user.email}</span>
+                    </div>
+        
+                    <button
+                      type="button"
+                      className="dropdown-action"
+                      onClick={() => {
+                        setShowProfile(false);
+                        scrollToItems();
+                      }}
+                    >
+                      Browse items
+                    </button>
+        
+                    <button
+                      type="button"
+                      className="dropdown-action signout-action"
+                      onClick={() => void handleSignOut()}
+                    >
+                      Sign out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="profile-details">
+                      <span className="profile-name">Welcome to FindIt</span>
+                      <span className="profile-email">
+                        Sign in to report and manage items.
+                      </span>
+                    </div>
+        
+                    <button
+                      type="button"
+                      className="dropdown-action"
+                      onClick={() => openAuth('signin')}
+                    >
+                      Sign in
+                    </button>
+        
+                    <button
+                      type="button"
+                      className="dropdown-action dropdown-primary"
+                      onClick={() => openAuth('signup')}
+                    >
+                      Create account
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="profile-wrapper">
-          <button
-            type="button"
-            className={`profile-button ${showProfile ? 'profile-active' : ''}`}
-            onClick={() => setShowProfile((current) => !current)}
-            aria-expanded={showProfile}
-          >
-            <span className="profile-avatar">
-              {user ? getUsername(user).charAt(0).toUpperCase() : '👤'}
-            </span>
-            <span className="profile-button-label">
-              {user ? getUsername(user) : 'Account'}
-            </span>
-            <span className="chevron">⌄</span>
-          </button>
-
-          {showProfile && (
-            <div className="profile-dropdown">
-              {user ? (
-                <>
-                  <div className="profile-details">
-                    <span className="profile-name">{getUsername(user)}</span>
-                    <span className="profile-email">{user.email}</span>
-                  </div>
-                  <button
-                    type="button"
-                    className="dropdown-action"
-                    onClick={() => {
-                      setShowProfile(false);
-                      scrollToItems();
-                    }}
-                  >
-                    Browse items
-                  </button>
-                  <button
-                    type="button"
-                    className="dropdown-action signout-action"
-                    onClick={() => void handleSignOut()}
-                  >
-                    Sign out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="profile-details">
-                    <span className="profile-name">Welcome to FindIt</span>
-                    <span className="profile-email">
-                      Sign in to report and manage items.
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    className="dropdown-action"
-                    onClick={() => openAuth('signin')}
-                  >
-                    Sign in
-                  </button>
-                  <button
-                    type="button"
-                    className="dropdown-action dropdown-primary"
-                    onClick={() => openAuth('signup')}
-                  >
-                    Create account
-                  </button>
-                </>
-              )}
-            </div>
-          )}
-        </div>
-      </header>
 
       {showSearch && (
         <div className="navbar-search-panel">

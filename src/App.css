@@ -2857,3 +2857,25 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* WIDER NAVIGATION BAR */
+
+.navbar {
+  width: 100%;
+  max-width: none;
+  padding-left: 2% !important;
+  padding-right: 2% !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Push navigation links toward the right */
+.navbar-actions {
+  margin-left: auto;
+}
+
+/* Keep the logo aligned to the left */
+.brand {
+  margin-right: auto;
+}

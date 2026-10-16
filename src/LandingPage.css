@@ -374,3 +374,51 @@
 .findit-landing-actions {
   justify-content: flex-start;
 }
+
+/* WIDER LANDING PAGE */
+
+.findit-landing {
+  width: 100%;
+  max-width: none;
+  padding: 60px 4% 60px;
+}
+
+.findit-landing-inner {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(30px, 5vw, 90px);
+}
+
+/* Allow the campus collage to use more space */
+.findit-photo-layout {
+  grid-template-rows: 400px 90px;
+}
+
+/* Give the preview more room */
+.findit-preview {
+  width: 100%;
+}
+
+/* Keep smaller screens responsive */
+@media (max-width: 980px) {
+  .findit-landing-inner {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+  }
+
+  .findit-photo-layout {
+    grid-template-rows: 320px 75px;
+  }
+}
+
+@media (max-width: 600px) {
+  .findit-landing {
+    padding: 28px 16px 40px;
+  }
+
+  .findit-photo-layout {
+    grid-template-rows: 260px 65px;
+  }
+}

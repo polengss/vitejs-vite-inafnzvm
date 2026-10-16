@@ -124,7 +124,6 @@ export default function App() {
   const [isSaving, setIsSaving] = useState(false);
 
   const [selectedPhoto, setSelectedPhoto] = useState('');
-  // Private messaging
   const [showMessages, setShowMessages] = useState(false);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConversation, setActiveConversation] =
@@ -263,7 +262,6 @@ export default function App() {
     setErrorMessage('');
 
     try {
-      // Reuse an existing conversation for this item and contact.
       const { data: existing, error: lookupError } = await supabase
         .from('conversations')
         .select('id, item_id, reporter_id, contact_id, created_at')
@@ -295,7 +293,6 @@ export default function App() {
           .single();
 
         if (createError) {
-          // If another request created it at the same time, try retrieving it.
           if (createError.code === '23505') {
             const { data: retry, error: retryError } = await supabase
               .from('conversations')
@@ -415,20 +412,16 @@ export default function App() {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
 
-      // Close the authentication modal
       setShowAuth(false);
       setShowPassword(false);
 
-      // Close the report/edit modal
       if (!isSaving) {
         setShowForm(false);
       }
 
-      // Close the messages modal
       setShowMessages(false);
       setActiveConversation(null);
 
-      // Close the photo preview
       setSelectedPhoto('');
     };
 

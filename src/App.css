@@ -2792,12 +2792,6 @@
   }
 }
 
-@media (max-width: 420px) {
-  .public-nav-link[href="#findit-faq"] {
-    display: none;
-  }
-}
-
 /* FULL-WIDTH APPLICATION LAYOUT */
 
 .app-shell {
@@ -2878,4 +2872,28 @@ body {
 /* Keep the logo aligned to the left */
 .brand {
   margin-right: auto;
+}
+
+/* MOBILE NAVBAR: KEEP ALL LINKS VISIBLE */
+
+@media (max-width: 600px) {
+  .public-nav {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .public-nav a,
+  .public-nav button {
+    display: inline-flex !important;
+    visibility: visible !important;
+  }
+
+  .navbar {
+    height: auto;
+    min-height: 90px;
+  }
 }

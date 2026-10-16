@@ -1,3 +1,4 @@
+import LandingPage from './LandingPage';
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { supabase } from './supabase';
@@ -840,7 +841,7 @@ export default function App() {
             <span className="expandable-icon" aria-hidden="true">⌕</span>
             <span className="expandable-label">Search</span>
           </button>
-        
+
           <button
             type="button"
             className="nav-action-button expandable-action nav-report-button"
@@ -850,7 +851,7 @@ export default function App() {
             <span className="expandable-icon" aria-hidden="true">＋</span>
             <span className="expandable-label">Report</span>
           </button>
-        
+
           <div className="profile-wrapper">
             <button
               type="button"
@@ -869,7 +870,7 @@ export default function App() {
               </span>
               <span className="expandable-label">Account</span>
             </button>
-        
+
             {showProfile && (
               <div className="profile-dropdown">
                 {user ? (
@@ -878,7 +879,7 @@ export default function App() {
                       <span className="profile-name">{getUsername(user)}</span>
                       <span className="profile-email">{user.email}</span>
                     </div>
-        
+
                     <button
                       type="button"
                       className="dropdown-action"
@@ -889,7 +890,7 @@ export default function App() {
                     >
                       Browse items
                     </button>
-        
+
                     <button
                       type="button"
                       className="dropdown-action signout-action"
@@ -906,7 +907,7 @@ export default function App() {
                         Sign in to report and manage items.
                       </span>
                     </div>
-        
+
                     <button
                       type="button"
                       className="dropdown-action"
@@ -914,7 +915,7 @@ export default function App() {
                     >
                       Sign in
                     </button>
-        
+
                     <button
                       type="button"
                       className="dropdown-action dropdown-primary"
@@ -929,6 +930,7 @@ export default function App() {
           </div>
         </div>
       </header>
+
 
       {showSearch && (
         <div className="navbar-search-panel">
@@ -971,7 +973,8 @@ export default function App() {
         </div>
       )}
 
-      <main id="top">
+      {user ? (
+        <main id="top">
         <section className="welcome-section">
           <div className="top-actions">
             <form
@@ -1209,6 +1212,12 @@ export default function App() {
           )}
         </section>
       </main>
+        ) : (
+          <LandingPage
+            onSignIn={() => openAuth('signin')}
+            onCreateAccount={() => openAuth('signup')}
+          />
+        )}
 
       <footer className="footer">
         <a className="footer-brand" href="#top">

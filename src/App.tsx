@@ -106,7 +106,6 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const [showProfile, setShowProfile] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
@@ -830,49 +829,23 @@ export default function App() {
         
         {user ? (
         <div className="navbar-actions">
+        <div className="profile-wrapper">
           <button
             type="button"
-            className={`nav-action-button expandable-action ${
-              showSearch ? 'nav-action-active' : ''
+            className={`profile-button expandable-action ${
+              showProfile ? 'profile-active' : ''
             }`}
             onClick={() => {
-              setShowSearch((current) => !current);
-              setShowProfile(false);
+              setShowProfile((current) => !current);
             }}
-            aria-label="Search"
+            aria-expanded={showProfile}
+            aria-label="Account"
           >
-            <span className="expandable-icon" aria-hidden="true">⌕</span>
-            <span className="expandable-label">Search</span>
+            <span className="profile-avatar" aria-hidden="true">
+              {user ? getUsername(user).charAt(0).toUpperCase() : '👤'}
+            </span>
+            <span className="expandable-label">Account</span>
           </button>
-
-          <button
-            type="button"
-            className="nav-action-button expandable-action nav-report-button"
-            onClick={openReportForm}
-            aria-label="Report item"
-          >
-            <span className="expandable-icon" aria-hidden="true">＋</span>
-            <span className="expandable-label">Report</span>
-          </button>
-
-          <div className="profile-wrapper">
-            <button
-              type="button"
-              className={`profile-button expandable-action ${
-                showProfile ? 'profile-active' : ''
-              }`}
-              onClick={() => {
-                setShowProfile((current) => !current);
-                setShowSearch(false);
-              }}
-              aria-expanded={showProfile}
-              aria-label="Account"
-            >
-              <span className="profile-avatar" aria-hidden="true">
-                {user ? getUsername(user).charAt(0).toUpperCase() : '👤'}
-              </span>
-              <span className="expandable-label">Account</span>
-            </button>
 
             {showProfile && (
               <div className="profile-dropdown">
@@ -916,49 +889,7 @@ export default function App() {
           </nav>
         )}
       </header>
-
-
-      {user && showSearch && (
-        <div className="navbar-search-panel">
-          <form
-            className="search-bar"
-            onSubmit={(event) => {
-              event.preventDefault();
-              setShowSearch(false);
-              scrollToItems();
-            }}
-          >
-            <span className="search-icon" aria-hidden="true">
-              ⌕
-            </span>
-
-            <input
-              type="search"
-              placeholder="Search items, categories, or locations..."
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              aria-label="Search items"
-              autoFocus
-            />
-
-            {search && (
-              <button
-                type="button"
-                className="clear-search"
-                onClick={() => setSearch('')}
-                aria-label="Clear search"
-              >
-                ×
-              </button>
-            )}
-
-            <button type="submit" className="search-submit">
-              Search
-            </button>
-          </form>
-        </div>
-      )}
-
+      
       {user ? (
         <main id="top">
         <section className="welcome-section">

@@ -8,6 +8,7 @@ type LandingPageProps = {
 };
 
 
+
 const campusPhotos = [
   {
     src: '/pnc-landmark.jpg',
@@ -26,6 +27,7 @@ const campusPhotos = [
     alt: 'Students inside the computer laboratory',
   },
 ];
+
 
 
 export default function LandingPage({

@@ -41,6 +41,7 @@ type ChatMessage = {
   createdAt: string;
 };
 
+
 const categories = [
   'Accessories',
   'Documents',
@@ -133,6 +134,8 @@ export default function App() {
   const [loadingConversations, setLoadingConversations] = useState(false);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
+
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
   async function loadItems() {
     setLoadingItems(true);
@@ -1138,13 +1141,148 @@ export default function App() {
           </>
         )}
 
-      <footer className="footer">
-        <a className="footer-brand" href="#top">
-          FindIt
-        </a>
-        <p>Helping campus belongings find their way home.</p>
-        <span>Campus Lost and Found</span>
+      
+<footer className="footer">
+  <a className="footer-brand" href="#top">
+    FindIt
+  </a>
+
+  <p>Helping campus belongings find their way home.</p>
+
+  <div className="footer-links">
+    <span>Campus Lost and Found</span>
+
+    <button
+      type="button"
+      className="footer-privacy-link"
+      onClick={() => setShowPrivacyPolicy(true)}
+    >
+      Privacy Policy
+    </button>
+  </div>
       </footer>
+
+      {showPrivacyPolicy && (
+        <div
+          className="privacy-overlay"
+          onClick={() => setShowPrivacyPolicy(false)}
+        >
+          <section
+            className="privacy-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="privacy-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="privacy-header">
+              <h2 id="privacy-title">FindIt Privacy Policy</h2>
+
+              <button
+                type="button"
+                className="privacy-close"
+                aria-label="Close Privacy Policy"
+                onClick={() => setShowPrivacyPolicy(false)}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="privacy-content">
+              <p><strong>Last updated:</strong> October 17, 2026</p>
+
+              <h3>1. Introduction</h3>
+              <p>
+                FindIt is a campus lost and found web application
+                developed as an academic project for the University
+                of Cabuyao. This Privacy Policy explains how
+                information is collected, used, stored, and protected
+                when using the application.
+              </p>
+
+              <h3>2. Information We Collect</h3>
+              <p>
+                FindIt may collect account information such as
+                usernames and email addresses, lost and found item
+                details, uploaded photographs, and messages exchanged
+                between users. Authentication credentials are
+                processed through Supabase Authentication.
+              </p>
+
+              <h3>3. How Information Is Used</h3>
+              <p>
+                Information is used to authenticate accounts,
+                maintain item reports, display lost and found
+                listings, and allow users to communicate regarding
+                reported belongings.
+              </p>
+
+              <h3>4. Data Storage and Third-Party Services</h3>
+              <p>
+                FindIt uses Supabase for authentication, database
+                storage, and uploaded images. The website is hosted
+                through Cloudflare Pages. The interactive campus map
+                uses Leaflet and map data provided by OpenStreetMap.
+                These services may process technical information
+                necessary to deliver their functionality.
+              </p>
+
+              <h3>5. Information Visibility</h3>
+              <p>
+                Item reports and uploaded photographs may be visible
+                to other users of FindIt. Private messages are
+                intended to be accessible only to participants in
+                their respective conversations, subject to the
+                application's access controls.
+              </p>
+
+              <h3>6. Data Security</h3>
+              <p>
+                FindIt uses Supabase Authentication and database
+                access policies to help restrict unauthorized
+                modifications and access to protected information.
+                However, no internet-based application can guarantee
+                absolute security.
+              </p>
+
+              <h3>7. Data Retention and Deletion</h3>
+              <p>
+                Users can edit or delete their own item reports
+                through the available application controls.
+                Account information and other stored data may remain
+                until removed through an applicable deletion process.
+                Users may contact the developer to request assistance
+                with deletion of their personal information.
+              </p>
+
+              <h3>8. Responsible Use</h3>
+              <p>
+                Users should avoid submitting passwords, confidential
+                records, or unnecessary sensitive personal information
+                in item descriptions, photographs, or messages.
+                FindIt is intended for educational and campus
+                lost and found purposes.
+              </p>
+
+              <h3>9. Changes to This Policy</h3>
+              <p>
+                This Privacy Policy may be updated when the
+                application's features or data handling practices
+                change. Updated information will be published
+                within the application.
+              </p>
+
+              <h3>10. Contact Information</h3>
+              <p>
+                For privacy-related questions or data deletion
+                requests, users may contact the FindIt developer
+                through the designated contact channel:
+                [rjohnpaul945@gmail.com | 09672765782].
+              </p>
+            </div>
+          </section>
+        </div>
+      )}
+
 
       {user && <button
         type="button"

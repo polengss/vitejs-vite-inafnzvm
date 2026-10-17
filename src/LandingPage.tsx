@@ -15,15 +15,15 @@ const campusPhotos = [
     alt: 'I Love PNC landmark at the University of Cabuyao',
   },
   {
-    src: '/campus/campus-building.jpg',
+    src: '/campus-building.jpg',
     alt: 'University of Cabuyao campus building',
   },
   {
-    src: '/campus/campus-life.jpg',
+    src: '/campus-life.jpg',
     alt: 'Students walking around the campus',
   },
   {
-    src: '/campus/computer-lab.webp',
+    src: '/computer-lab.webp',
     alt: 'Students inside the computer laboratory',
   },
 ];

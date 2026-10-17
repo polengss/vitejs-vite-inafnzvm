@@ -7,9 +7,10 @@ type LandingPageProps = {
   onCreateAccount: () => void;
 };
 
+
 const campusPhotos = [
   {
-    src: '/campus/pnc-landmark.jpg',
+    src: '/pnc-landmark.jpg',
     alt: 'I Love PNC landmark at the University of Cabuyao',
   },
   {
@@ -25,6 +26,7 @@ const campusPhotos = [
     alt: 'Students inside the computer laboratory',
   },
 ];
+
 
 export default function LandingPage({
   onSignIn,
